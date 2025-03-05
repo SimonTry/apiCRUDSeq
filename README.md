@@ -58,7 +58,7 @@ npx sequelize-cli migration:generate --name name-of-your-migration
 
 2. This command help us to apply migration changes into the database model
 ```sh
-apply migrations npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate
 ```
 
 ## Documentation
