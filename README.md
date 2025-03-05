@@ -63,6 +63,6 @@ npx sequelize-cli db:migrate
 
 ## Documentation
 
-https://sequelize.org/docs/v6/core-concepts/model-basics/#extending-model
-https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
-https://sequelize.org/docs/v6/other-topics/migrations/
+>> https://sequelize.org/docs/v6/core-concepts/model-basics/#extending-model
+>> https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+>> https://sequelize.org/docs/v6/other-topics/migrations/
