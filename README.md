@@ -2,18 +2,28 @@
 
 ## Create base project
 
-1. npm init -y (this command help us to init base project)
-2. npm install express sequelize mysql2 cors body-parser helmet morgan dotenv 
+```sh
+npm init -y
+```
+(this command help us to init base project)
+
+```sh
+npm install express sequelize mysql2 cors body-parser helmet morgan dotenv
+```
 
 > [!NOTE]  
 > those are the dependencies we need to use ORM, to connect to data base, to add security configurations to our apis and finally to get variables from environment process and log all transactions requested.
 
-3. npm install --save-dev nodemon sequelize-cli
+```sh
+npm install --save-dev nodemon sequelize-cli
+```
 
 > [!NOTE]  
 > Nodemon it's for autorefresh pur project. Sequelize cli is our client to exec sequelize commands.
 
-4. npx sequelize-cli init
+```sh
+npx sequelize-cli init
+```
 
 > [!NOTE]  
 > This command help us to create base folder structure in root project.
@@ -41,8 +51,15 @@
 
 ## create a model
 
-1. npx sequelize-cli migration:generate --name create-usuario  
-2. apply migrations npx sequelize-cli db:migrate    
+1. This command help us to create a new migration file where allow us to modify the database model
+```sh
+npx sequelize-cli migration:generate --name name-of-your-migration
+```
+
+2. This command help us to apply migration changes into the database model
+```sh
+apply migrations npx sequelize-cli db:migrate
+```
 
 ## Documentation
 
