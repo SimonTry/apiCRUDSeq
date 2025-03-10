@@ -57,7 +57,7 @@ npm install jsonwebtoken bcryptjs express-jwt
 > [!IMPORTANT]  
 > Once you have installed all dependencies and you have a complete package.json with all of them included
 > you just need run
-> ```sh
+```sh
 npm i
 ```
 
