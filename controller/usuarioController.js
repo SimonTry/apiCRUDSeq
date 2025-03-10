@@ -12,15 +12,16 @@ const getUsers = async (req, res) => {
 
 const addUser = async(req, res) =>{
     try {
-        const {nombre, email, password, estado} = req.body;
+        const {nombre, email, password} = req.body;
 
-        const hashContrasena = await bcrypt.hash(password, 10);
+        if (!password) {
+            return res.status(400).json({ error: "La contraseña es obligatoria" });
+        }
 
         const usuario = await Usuario.create({
             nombre, 
             email,
-            estado,
-            password: hashContrasena});
+            password});
 
         res.status(201).json(usuario);
     } catch (error) {
@@ -40,7 +41,9 @@ const updateUser = async(req, res) =>{
 
         if (nombre) usuario.nombre = nombre;
         if (email) usuario.email = email;
-        if (password) usuario.password = password;
+        if (password) {
+            usuario.password = await bcrypt.hash(password, 10); // Hashear la nueva contraseña
+        }
 
         await usuario.save();
         return res.status(200).json({message:"Usuario actualizado", usuario})
