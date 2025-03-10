@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const { Usuario } = require("../models");
 
 const getUsers = async (req, res) => {
@@ -11,8 +12,16 @@ const getUsers = async (req, res) => {
 
 const addUser = async(req, res) =>{
     try {
-        const {nombre, email} = req.body;
-        const usuario = await Usuario.create({nombre, email});
+        const {nombre, email, password, estado} = req.body;
+
+        const hashContrasena = await bcrypt.hash(password, 10);
+
+        const usuario = await Usuario.create({
+            nombre, 
+            email,
+            estado,
+            password: hashContrasena});
+
         res.status(201).json(usuario);
     } catch (error) {
         res.status(500).json({error: error.message})
@@ -22,7 +31,7 @@ const addUser = async(req, res) =>{
 const updateUser = async(req, res) =>{
     try {
         const {id} = req.params;
-        const {nombre, email} = req.body;
+        const {nombre, email, password} = req.body;
 
         const usuario = await Usuario.findByPk(id);
         if(!usuario){
@@ -31,6 +40,7 @@ const updateUser = async(req, res) =>{
 
         if (nombre) usuario.nombre = nombre;
         if (email) usuario.email = email;
+        if (password) usuario.password = password;
 
         await usuario.save();
         return res.status(200).json({message:"Usuario actualizado", usuario})

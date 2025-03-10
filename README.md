@@ -33,6 +33,12 @@ npx sequelize-cli init
 2. routes (folder to include available routes to execute or call controller functions)
 3. .env (file where we have our credentials)
 
+## Install auth dependencies
+
+```sh
+npm install jsonwebtoken bcryptjs express-jwt
+```
+
 > [!IMPORTANT]  
 > Our credentials always shall be hidden on .env file and env config.
 
