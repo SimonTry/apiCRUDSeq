@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const usuarioController = require("../controller/usuarioController");
+const authService =  require("../services/authService");
 
-router.get("/", usuarioController.getUsers);
-router.post("/addUser", usuarioController.addUser);
-router.post("/:id", usuarioController.updateUser);
-router.post("/ChangeStatus/:id", usuarioController.changeUserStatus);
+
+router.get("/",authService, usuarioController.getUsers);
+router.post("/addUser",authService, usuarioController.addUser);
+router.post("/:id",authService, usuarioController.updateUser);
+router.post("/ChangeStatus/:id", authService,usuarioController.changeUserStatus);
 
 module.exports = router;

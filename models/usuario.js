@@ -1,10 +1,16 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize) => {
   class Usuario extends Model {
     static associate(models) {
       // Definir asociaciones aquí si es necesario
+    }
+
+    // Método para comparar la contraseña ingresada con la almacenada
+    async validarPassword(password) {
+      return await bcrypt.compare(password, this.password);
     }
   }
 
@@ -12,9 +18,9 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, // Genera un UUID automáticamente
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,
-        primaryKey: true, // Define 'id' como clave primaria
+        primaryKey: true,
       },
       nombre: {
         type: DataTypes.STRING,
@@ -23,18 +29,31 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true, // Evita correos duplicados
+        unique: true,
       },
-      estado:{
+      password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+      },
+      estado: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "Activo"
       }
     },
     {
       sequelize,
       modelName: "Usuario",
-      tableName: "usuario", // Especificar nombre de la tabla
-      timestamps: true, // Agrega createdAt y updatedAt
+      tableName: "usuario",
+      timestamps: true,
+
+      // Hook para cifrar la contraseña antes de guardar
+      hooks: {
+        beforeCreate: async (usuario) => {
+          const salt = await bcrypt.genSalt(10);
+          usuario.password = await bcrypt.hash(usuario.password, salt);
+        }
+      }
     }
   );
 
