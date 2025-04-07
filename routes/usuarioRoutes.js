@@ -5,7 +5,7 @@ const authService =  require("../services/authService");
 
 
 router.get("/",authService, usuarioController.getUsers);
-router.post("/addUser",authService, usuarioController.addUser);
+router.post("/addUser", usuarioController.addUser);
 router.post("/:id",authService, usuarioController.updateUser);
 router.post("/ChangeStatus/:id", authService,usuarioController.changeUserStatus);
 
