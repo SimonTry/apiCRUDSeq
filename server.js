@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser")
 const usuarioRoutes = require("./routes/usuarioRoutes");
 const pedidoRoutes = require("./routes/pedidoRoutes");
+const productoRoutes = require("./routes/productoRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use("/auth", authRoutes)
 app.use("/api/usuarios", usuarioRoutes)
 app.use("/api/pedidos", pedidoRoutes)
+app.use("/api/productos", productoRoutes)
 
 const PORT = process.env.PORT || 3000;
 

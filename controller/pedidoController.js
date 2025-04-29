@@ -30,12 +30,14 @@ const pedidoController = {
         try{
 
             const pedido = await Pedido.create({cliente})
+            // return res.status(200).json(pedido)
             let total = 0;
             const detalles = [];
 
             for(const item of productos){
                 const producto = await Producto.findByPk(item.id);
                 if(!producto){
+                    pedido.destroy();
                     return res.status(404).json({error: `Producto con id ${item.id} no se encuentra`});
                 }
 
