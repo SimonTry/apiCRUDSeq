@@ -40,7 +40,7 @@ const addUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, email, password } = req.body;
+        const { nombre, email, password, estado } = req.body;
 
         const usuario = await Usuario.findByPk(id);
         if (!usuario) {
@@ -49,6 +49,8 @@ const updateUser = async (req, res) => {
 
         if (nombre) usuario.nombre = nombre;
         if (email) usuario.email = email;
+        if (estado) usuario.estado = estado;
+        
         if (password) {
             usuario.password = await bcrypt.hash(password, 10); // Hashear la nueva contraseña
         }
@@ -88,4 +90,17 @@ const changeUserStatus = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, addUser, updateUser, changeUserStatus }
+const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const usuario = await Usuario.findByPk(id);
+        if (!usuario) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        return res.status(200).json(usuario);
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
+module.exports = { getUsers, addUser, updateUser, changeUserStatus, getUserById }
